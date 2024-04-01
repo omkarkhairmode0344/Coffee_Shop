@@ -48,20 +48,26 @@ const getCoffeeList = (category: string, data: any) => {
 
 const HomeScreen = ({navigation}: any) => {
   const CoffeeList = useStore((state: any) => state.CoffeeList);
+
   const BeanList = useStore((state: any) => state.BeanList);
+
   const [categories, setCategories] = useState(
     getCategoriesFromData(CoffeeList),
   );
+
   const [searchText, setSearchText] = useState('');
+
   const [categoryIndex, setCategoryIndex] = useState({
     index: 0,
     category: categories[0],
   });
+
   const [sortedCoffee, setSortedCoffee] = useState(
     getCoffeeList(categoryIndex.category, CoffeeList),
   );
 
   const ListRef: any = useRef<FlatList>();
+
   const tabBarHeight = useBottomTabBarHeight();
 
   const searchCoffee = (search: string) => {
@@ -195,7 +201,11 @@ const HomeScreen = ({navigation}: any) => {
             return (
               <TouchableOpacity
                 onPress={() => {
-                  navigation.push('Details');
+                  navigation.push('Details', {
+                    index: item.index,
+                    type: item.type,
+                    id: item.id,
+                  });
                 }}>
                 <CoffeeCrad
                   name={item.name}
@@ -224,7 +234,11 @@ const HomeScreen = ({navigation}: any) => {
             return (
               <TouchableOpacity
                 onPress={() => {
-                  navigation.push('Details');
+                  navigation.push('Details', {
+                    index: item.index,
+                    type: item.type,
+                    id: item.id,
+                  });
                 }}>
                 <CoffeeCrad
                   name={item.name}
