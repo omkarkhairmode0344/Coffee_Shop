@@ -2,6 +2,7 @@ import React from 'react';
 import {
   Image,
   ImageBackground,
+  ImageProps,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -15,17 +16,47 @@ import {
   SPACING,
 } from '../theme/theme';
 
-const ImageBackgroundInfo = (props: any) => {
+interface ImageBackgroundInfoProps {
+  EnableBackHandler: boolean;
+  imagelink_portrait: ImageProps;
+  type: string;
+  id: string;
+  favourite: boolean;
+  name: string;
+  special_ingredient: string;
+  ingredients: string;
+  average_rating: number;
+  ratings_count: string;
+  roasted: string;
+  BackHandler?: any;
+  ToggleFavourite: any;
+}
+
+const ImageBackgroundInfo: React.FC<ImageBackgroundInfoProps> = ({
+  EnableBackHandler,
+  imagelink_portrait,
+  type,
+  id,
+  favourite,
+  name,
+  special_ingredient,
+  ingredients,
+  average_rating,
+  ratings_count,
+  roasted,
+  BackHandler,
+  ToggleFavourite,
+}) => {
   return (
     <View>
       <ImageBackground
-        source={props.imagelink_portrait}
+        source={imagelink_portrait}
         style={styles.ItemBackgroundImage}>
-        {props.EnableBackHandler ? (
+        {EnableBackHandler ? (
           <View style={styles.ImageHeaderBarContainerWithBack}>
             <TouchableOpacity
               onPress={() => {
-                props.BackHandler();
+                BackHandler();
               }}>
               <View style={styles.container}>
                 <Image
@@ -35,7 +66,7 @@ const ImageBackgroundInfo = (props: any) => {
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {
-                props.ToggleFavourite(props.favourite, props.type, props.id);
+                ToggleFavourite(favourite, type, id);
               }}>
               <View style={styles.container}>
                 <Image
@@ -43,7 +74,7 @@ const ImageBackgroundInfo = (props: any) => {
                   style={[
                     styles.image,
                     {
-                      tintColor: props.favourite
+                      tintColor: favourite
                         ? COLORS.primaryRedHex
                         : COLORS.primaryLightGreyHex,
                     },
@@ -55,7 +86,7 @@ const ImageBackgroundInfo = (props: any) => {
           <View style={styles.ImageHeaderBarContainerWithoutBack}>
             <TouchableOpacity
               onPress={() => {
-                props.ToggleFavourite(props.favourite, props.type, props.id);
+                ToggleFavourite(favourite, type, id);
               }}>
               <View style={styles.container}>
                 <Image
@@ -63,7 +94,7 @@ const ImageBackgroundInfo = (props: any) => {
                   style={[
                     styles.image,
                     {
-                      tintColor: props.favourite
+                      tintColor: favourite
                         ? COLORS.primaryRedHex
                         : COLORS.primaryLightGreyHex,
                     },
@@ -77,9 +108,9 @@ const ImageBackgroundInfo = (props: any) => {
           <View style={styles.ImageInfoInnerContainer}>
             <View style={styles.InfoContainerRow}>
               <View>
-                <Text style={styles.ItemTitleText}>{props.name}</Text>
+                <Text style={styles.ItemTitleText}>{name}</Text>
                 <Text style={styles.ItemSubtitleText}>
-                  {props.special_ingredient}
+                  {special_ingredient}
                 </Text>
               </View>
 
@@ -87,12 +118,12 @@ const ImageBackgroundInfo = (props: any) => {
                 <View style={styles.containertype}>
                   <Image
                     source={
-                      props.type == 'Bean'
+                      type == 'Bean'
                         ? require('../assets/app_images/C_Bean.png')
                         : require('../assets/app_images/C_Coffee.png')
                     }
                     style={
-                      props.type == 'Bean'
+                      type == 'Bean'
                         ? styles.beanimagestyle
                         : styles.coffeeimagestyle
                     }></Image>
@@ -101,24 +132,22 @@ const ImageBackgroundInfo = (props: any) => {
                       styles.PropertyTextFirst,
                       {
                         marginTop:
-                          props.type == 'Bean'
-                            ? SPACING.space_4
-                            : SPACING.space_2,
+                          type == 'Bean' ? SPACING.space_4 : SPACING.space_2,
                       },
                     ]}>
-                    {props.type}
+                    {type}
                   </Text>
                 </View>
 
                 <View style={styles.containertype}>
                   <Image
                     source={
-                      props.type == 'Bean'
+                      type == 'Bean'
                         ? require('../assets/app_images/C_Location.png')
                         : require('../assets/app_images/C_Milk.png')
                     }
                     style={
-                      props.type == 'Bean'
+                      type == 'Bean'
                         ? styles.beanimagestyle
                         : styles.coffeeimagestyle
                     }></Image>
@@ -127,12 +156,10 @@ const ImageBackgroundInfo = (props: any) => {
                       styles.PropertyTextFirst,
                       {
                         marginTop:
-                          props.type == 'Bean'
-                            ? SPACING.space_4
-                            : SPACING.space_2,
+                          type == 'Bean' ? SPACING.space_4 : SPACING.space_2,
                       },
                     ]}>
-                    {props.ingredients}
+                    {ingredients}
                   </Text>
                 </View>
               </View>
@@ -144,14 +171,14 @@ const ImageBackgroundInfo = (props: any) => {
                   source={require('../assets/app_images/C_Star.png')}
                   style={styles.starimage}></Image>
                 <Text style={{color: COLORS.primaryWhiteHex}}>
-                  {props.average_rating}
+                  {average_rating}
                 </Text>
                 <Text style={{color: COLORS.primaryWhiteHex}}>
-                  ({props.ratings_count})
+                  ({ratings_count})
                 </Text>
               </View>
               <View style={styles.RoastedContainer}>
-                <Text style={styles.RoastedText}>{props.roasted}</Text>
+                <Text style={styles.RoastedText}>{roasted}</Text>
               </View>
             </View>
           </View>
@@ -276,18 +303,18 @@ const styles = StyleSheet.create({
     fontSize: FONTSIZE.size_12,
     color: COLORS.primaryWhiteHex,
   },
-  DescriptionContainer:{
+  DescriptionContainer: {
     paddingVertical: SPACING.space_24,
     paddingHorizontal: SPACING.space_30,
   },
   DescriptionText: {
     color: COLORS.primaryWhiteHex,
-    fontFamily:FONTFAMILY.poppins_semibold,
+    fontFamily: FONTFAMILY.poppins_semibold,
   },
-  DescriptionSubText:{
+  DescriptionSubText: {
     color: COLORS.primaryWhiteHex,
-    fontSize:SPACING.space_12,
-    fontFamily:FONTFAMILY.poppins_medium,
+    fontSize: SPACING.space_12,
+    fontFamily: FONTFAMILY.poppins_medium,
   },
 });
 
