@@ -8,6 +8,7 @@ import {
   StyleSheet,
   Text,
   TextInput,
+  ToastAndroid,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -93,6 +94,38 @@ const HomeScreen = ({navigation}: any) => {
     setCategoryIndex({index: 0, category: categories[0]});
     setSortedCoffee([...CoffeeList]);
     setSearchText('');
+  };
+
+  const addToCart = useStore((state: any) => state.addToCart);
+
+  const calculateCartPrice = useStore((state: any) => state.calculateCartPrice);
+
+  const CoffeCardAddToCart = ({
+    id,
+    index,
+    name,
+    roasted,
+    imagelink_square,
+    special_ingredient,
+    type,
+    price,
+  }: any) => {
+    addToCart({
+      id,
+      index,
+      name,
+      roasted,
+      imagelink_square,
+      special_ingredient,
+      type,
+      prices: [{...price, quantity: 1}],
+    });
+    calculateCartPrice();
+    ToastAndroid.showWithGravity(
+      `${name} is Added to Cart`,
+      ToastAndroid.SHORT,
+      ToastAndroid.CENTER,
+    );
   };
 
   return (
@@ -214,7 +247,8 @@ const HomeScreen = ({navigation}: any) => {
                   special_ingredient={item.special_ingredient}
                   prices={item.prices[2]}
                   average_rating={item.average_rating}
-                  index={item.index}></CoffeeCrad>
+                  index={item.index}
+                  buttonPressHandler={CoffeCardAddToCart}></CoffeeCrad>
               </TouchableOpacity>
             );
           }}></FlatList>
@@ -247,7 +281,8 @@ const HomeScreen = ({navigation}: any) => {
                   special_ingredient={item.special_ingredient}
                   prices={item.prices[2]}
                   average_rating={item.average_rating}
-                  index={item.index}></CoffeeCrad>
+                  index={item.index}
+                  buttonPressHandler={CoffeCardAddToCart}></CoffeeCrad>
               </TouchableOpacity>
             );
           }}></FlatList>
