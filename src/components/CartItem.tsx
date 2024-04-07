@@ -125,7 +125,7 @@ const CartItem = (props: any) => {
                   onPress={() => {
                     props.decrementCartItemQuantityHandler(
                       props.id,
-                      props.size,
+                      props.prices[0].size,
                     );
                   }}>
                   <Image
@@ -145,7 +145,7 @@ const CartItem = (props: any) => {
                   onPress={() => {
                     props.incrementCartItemQuantityHandler(
                       props.id,
-                      props.size,
+                      props.prices[0].size,
                     );
                   }}>
                   <Image

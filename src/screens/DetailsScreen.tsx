@@ -72,6 +72,7 @@ const DetailsScreen = ({navigation, route}: any) => {
         <ImageBackgroundInfo
           EnableBackHandler={true}
           imagelink_portrait={ItemOfIndex.imagelink_portrait}
+          id={ItemOfIndex.id}
           favourite={ItemOfIndex.favourite}
           name={ItemOfIndex.name}
           special_ingredient={ItemOfIndex.special_ingredient}
@@ -80,7 +81,6 @@ const DetailsScreen = ({navigation, route}: any) => {
           average_rating={ItemOfIndex.average_rating}
           ratings_count={ItemOfIndex.ratings_count}
           roasted={ItemOfIndex.roasted}
-          description={ItemOfIndex.description}
           BackHandler={BackHandler}
           ToggleFavourite={ToggleFavourite}></ImageBackgroundInfo>
 
@@ -174,7 +174,7 @@ const styles = StyleSheet.create({
   },
   ScrollViewFlex: {
     flexGrow: 1,
-    justifyContent:'space-between',
+    justifyContent: 'space-between',
   },
   DescriptionContainer: {
     paddingHorizontal: SPACING.space_20,
