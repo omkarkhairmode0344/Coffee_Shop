@@ -4,7 +4,7 @@ import {COLORS, FONTFAMILY, SPACING} from '../theme/theme';
 import ProfilePic from './ProfilePic';
 import MenuIcon from './MenuIcon';
 
-const HeaderBar = props => {
+const HeaderBar = (props:any) => {
   return (
     <View style={styles.container}>
       <MenuIcon></MenuIcon>

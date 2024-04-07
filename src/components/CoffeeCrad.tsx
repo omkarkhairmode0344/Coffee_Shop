@@ -19,27 +19,65 @@ import AddIcon from './AddIcon';
 
 const CARD_WIDTH = Dimensions.get('window').width * 0.32;
 
-const CoffeeCrad = (props: any) => {
+interface CoffeeCardProps {
+  id: string;
+  index: number;
+  type: string;
+  roasted: string;
+  imagelink_square: any;
+  name: string;
+  special_ingredient: string;
+  average_rating: number;
+  prices: any;
+  price:any;
+  buttonPressHandler: any;
+}
+
+const CoffeeCrad: React.FC<CoffeeCardProps> = ({
+  id,
+  index,
+  type,
+  roasted,
+  imagelink_square,
+  name,
+  special_ingredient,
+  average_rating,
+  prices,
+  price,
+  buttonPressHandler,
+}) => {
   return (
     <View style={styles.container}>
       <ImageBackground
-        source={props.imagelink_square}
+        source={imagelink_square}
         style={styles.imageBackground}
         resizeMode="cover">
         <View style={styles.imageBackgroundContainer}>
           <Image
             source={require('../assets/app_images/C_Star.png')}
             style={styles.imagerating}></Image>
-          <Text style={styles.textrating}>{props.average_rating}</Text>
+          <Text style={styles.textrating}>{average_rating}</Text>
         </View>
       </ImageBackground>
-      <Text style={styles.cardtitle}>{props.name}</Text>
-      <Text style={styles.cardsubtitle}>{props.special_ingredient}</Text>
+      <Text style={styles.cardtitle}>{name}</Text>
+      <Text style={styles.cardsubtitle}>{special_ingredient}</Text>
       <View style={styles.CardFooterRow}>
         <Text style={styles.cardcurency}>
-          $ <Text style={styles.cardcurencyprice}>{props.prices.price}</Text>
+          $ <Text style={styles.cardcurencyprice}>{prices.price}</Text>
         </Text>
-        <TouchableOpacity onPress={()=>{}}>
+        <TouchableOpacity
+          onPress={() => {
+            buttonPressHandler({
+              id,
+              index,
+              type,
+              roasted,
+              imagelink_square,
+              name,
+              special_ingredient,
+              prices: [{...price, quantity: 1}],
+            });
+          }}>
           <AddIcon></AddIcon>
         </TouchableOpacity>
       </View>
